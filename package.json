@@ -39,6 +39,7 @@
     ]
   },
   "devDependencies": {
+    "@types/firebase": "^3.2.3",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2"
   }
