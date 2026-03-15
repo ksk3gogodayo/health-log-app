@@ -5,52 +5,52 @@
 
 ## 🚀 アプリ概要
 
-Health Log App は、体調・服薬・気分を簡単に記録できるWebアプリです。
-スマートフォンやPCから、日々の健康状態をシンプルな操作で入力・振り返りできます。
-
-生活習慣の見直しや、医療機関での説明資料として活用できるほか、
+体調・服薬・気分を簡単に記録できるWebアプリです。
 日々の小さな変化を「見える化」することで、セルフケアの習慣化をサポートします。
 
-- **アプリURL**：  
-  [Health Log App 本体（Vercel公開版）](https://health-log-app.vercel.app/)
-
-- **ポートフォリオ解説**：  
-  [Health Log App 開発解説ページ（Notion）](https://succulent-tent-197.notion.site/Health-Log-App-1d9f91f28e9280ad9f8cc58e7027158a)
+- **アプリURL**：[Health Log App（Vercel）](https://health-log-app.vercel.app/)
 
 ## 🛠️ 使用技術スタック
 
-- **Frontend**：React（TypeScript）
-- **Backend / DB**：Firebase（Cloud Firestore, Authentication）
-- **Hosting**：Vercel
+| 階層 / 機能    | 採用技術                                | 選定理由                                 |
+| -------------- | --------------------------------------- | ---------------------------------------- |
+| Frontend       | **React 19 + CRA（TypeScript）**        | 安定した構成・TypeScript対応             |
+| 状態管理       | React Hooks（`useState` / `useEffect`） | 小〜中規模で十分                         |
+| Authentication | **Firebase Auth**                       | Google / メール / ゲストログイン対応     |
+| Database       | **Firestore**                           | リアルタイム購読・ユーザーIDでデータ分離 |
+| Hosting        | **Vercel**                              | GitHub push → 自動デプロイ               |
 
-## 🌟 主な機能・工夫ポイント
+## 🌟 主な機能（実装済み）
 
 - 体調メモ＋薬チェックの記録入力（複数の薬に対応）
-- ログの一覧表示（Firestoreと連携）
-- 匿名ログインによるユーザー識別
+- ログの一覧表示・編集・削除（Firestoreと連携）
+- **Firebase Auth（Google / メール / ゲストログイン）✅**
+- **ユーザーIDでFirestoreデータを分離 ✅**
 - 日付ごとの記録をカレンダーから確認可能
 - 季節ごとのテーマ切り替え（色・メッセージ）
-- Markdown形式での出力（開発中）
+- Markdown形式での出力
 
 ## 🔥 今後の開発予定
 
-- 編集／削除機能のUI改善
 - 薬のカスタム登録と管理機能
 - 花粉レベルの自動取得・表示
 - ダークモード対応
-- より柔軟なスマホ表示最適化
+- スマホ表示の最適化
 
-## 📝 ライセンス
+## 🚀 ローカルでの実行手順
 
-- このリポジトリは個人開発目的のため、特にライセンス制限は設けていません。
-- 内容を参考にしていただくのは自由です。
-- フィードバックなど歓迎です！
+```bash
+git clone https://github.com/ksk3gogodayo/health-log-app.git
+cd health-log-app
+npm install
+npm run start
+```
+
+※ `.env` に Firebase の環境変数を設定してください。
 
 ## 👤 開発・運用者
 
-- 池上 慶亮 / Keisuke Ikegami
-- 技術習得と転職活動の一環として、本アプリを開発・公開しています。
+池上 慶亮 / Keisuke Ikegami  
+技術習得と転職活動の一環として開発・公開しています。
 
-<!--
-#healthlog #react #firebase #typescript #個人開発 #ポートフォリオ
--->
+📣 フィードバック・レビュー大歓迎です！
