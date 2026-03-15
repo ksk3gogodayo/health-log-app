@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import {
   collection,
   getDocs,
@@ -10,19 +9,19 @@ import {
   addDoc,
   setDoc,
   getDoc,
-  Firestore,
-  QuerySnapshot,
   onSnapshot,
-  getDocsFromServer
 } from "firebase/firestore";
 import { auth, db } from "../firebase";
 import { LogItem, NewLogItem } from "../types";
 
-export const subscribeHealthLogs = (uid: string, onUpdate: (logs: LogItem[]) => void) => {
+export const subscribeHealthLogs = (
+  uid: string,
+  onUpdate: (logs: LogItem[]) => void,
+) => {
   const q = query(collection(db, "healthLogs"), where("uid", "==", uid));
   return onSnapshot(q, (snapshot) => {
     console.log("📦 サブスクライブで受け取った snapshot:", snapshot.docs);
-    const logs = snapshot.docs.map(doc => {
+    const logs = snapshot.docs.map((doc) => {
       console.log("📘 raw doc:", doc.data()); // ←これ入れて
       return {
         id: doc.id,
@@ -36,8 +35,8 @@ export const subscribeHealthLogs = (uid: string, onUpdate: (logs: LogItem[]) => 
 export const fetchHealthLogs = async (uid: string) => {
   try {
     const q = query(collection(db, "healthLogs"), where("uid", "==", uid));
-    const snapshot = await getDocs(q);  // ← getDocsFromServer → getDocs に修正
-    return snapshot.docs.map(doc => ({
+    const snapshot = await getDocs(q); // ← getDocsFromServer → getDocs に修正
+    return snapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
     })) as LogItem[];
@@ -91,7 +90,7 @@ export const deleteHealthLog = async (id: string) => {
     const data = snap.data();
     console.log("📦 削除対象ログの中身:", data);
     console.log("🧑‍💻 現在のユーザーuid:", auth.currentUser?.uid);
-    
+
     await deleteDoc(docRef);
     console.log("🗑 Firestore削除完了:", id);
   } catch (error) {

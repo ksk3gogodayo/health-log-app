@@ -3,7 +3,7 @@
 // このコンポーネントは props で受け取っていた形に戻します。
 
 import React from "react";
-import { LogItem, Meds, PollenLevel } from "../../types";
+import { Meds, PollenLevel } from "../../types";
 
 type Props = {
   memo: string;
