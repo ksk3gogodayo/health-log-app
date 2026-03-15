@@ -16,7 +16,7 @@ const AuthWrapper = () => {
 
   const handleLogout = async () => {
     try {
-      // なにか処理
+      await signOut(auth);
     } catch (err) {
       if (err instanceof Error) {
         alert("ログアウト失敗：" + err.message);

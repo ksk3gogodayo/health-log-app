@@ -1,6 +1,7 @@
 // src/Login.tsx
-import { useState, useEffect } from "react";import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "./firebase";
+import { useState, useEffect } from "react";
+import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { auth, googleProvider } from "./firebase";
 import SignUp from "./SignUp";
 import { getSeason } from "./lib/getSeason";
 import { seasonThemes } from "./lib/theme";
@@ -16,16 +17,16 @@ const Login = () => {
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-color-scheme: dark)");
-    const listener = (e: MediaQueryListEvent) => setMode(e.matches ? "dark" : "light");
-  
+    const listener = (e: MediaQueryListEvent) =>
+      setMode(e.matches ? "dark" : "light");
+
     setMode(mq.matches ? "dark" : "light");
     mq.addEventListener("change", listener);
-  
+
     return () => mq.removeEventListener("change", listener);
   }, []);
 
   const fontColor = mode === "dark" ? theme.darkColor : theme.lightColor;
-
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -38,6 +39,14 @@ const Login = () => {
       await signInWithEmailAndPassword(auth, email, password);
     } catch (err) {
       setError("ログインに失敗しました！");
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    try {
+      await signInWithPopup(auth, googleProvider);
+    } catch (error) {
+      console.error("Googleログイン失敗:", error);
     }
   };
 
@@ -66,7 +75,12 @@ const Login = () => {
           justifyContent: "center",
         }}
       >
-        <h1 style={{ textShadow: "0 0 8px rgba(0,0,0,0.5)", marginBottom: "1rem" }}>
+        <h1
+          style={{
+            textShadow: "0 0 8px rgba(0,0,0,0.5)",
+            marginBottom: "1rem",
+          }}
+        >
           新規登録
         </h1>
         <SignUp setShowLogin={() => setShowSignUp(false)} />
@@ -155,6 +169,15 @@ const Login = () => {
         <button type="submit" style={{ width: "100%", padding: "0.5rem" }}>
           ログイン
         </button>
+
+        <button
+          type="button"
+          onClick={handleGoogleLogin}
+          style={{ width: "100%", padding: "0.5rem", marginTop: "0.5rem" }}
+        >
+          Googleでログイン
+        </button>
+
         <p style={{ marginTop: "1rem", textAlign: "center" }}>
           アカウントをお持ちでない方は{" "}
           <button
@@ -170,9 +193,12 @@ const Login = () => {
           >
             新規登録
           </button>
-
           {/* ...既存のログインUI */}
-          <button onClick={handleGuestLogin}>
+          <button
+            type="button"
+            onClick={handleGuestLogin}
+            style={{ width: "100%", padding: "0.5rem", marginTop: "0.5rem" }}
+          >
             ゲストログイン
           </button>
         </p>
